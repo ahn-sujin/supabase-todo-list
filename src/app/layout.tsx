@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import "@/styles/reset.css";
 import styles from "@/styles/layout.module.css";
+import ReactQueryClientProvider from "../../config/ReactQueryClientProvider";
 
 export default function RootLayout({
   children,
@@ -10,10 +11,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className={styles.container}>
-          <header>TODO LIST</header>
-          <main>{children}</main>
-        </div>
+        <ReactQueryClientProvider>
+          <div className={styles.container}>
+            <header>TODO LIST</header>
+            <main>{children}</main>
+          </div>
+        </ReactQueryClientProvider>
       </body>
     </html>
   );
