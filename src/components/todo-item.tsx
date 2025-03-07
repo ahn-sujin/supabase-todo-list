@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AiOutlineCheck, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
 import style from "@/styles/todo-item.module.css";
 
@@ -34,12 +35,18 @@ export default function TodoItem() {
       </div>
       <div className={style.buttons}>
         {!isUpdated ? (
-          <button onClick={onClickUpdatedButton}>수정</button>
+          <button onClick={onClickUpdatedButton} aria-label="TODO 수정">
+            <AiOutlineEdit size="16" />
+          </button>
         ) : (
-          <button onClick={onClickCompletedButton}>완료</button>
+          <button onClick={onClickCompletedButton} aria-label="TODO 수정 완료">
+            <AiOutlineCheck size="16" />
+          </button>
         )}
 
-        <button>삭제</button>
+        <button className={style.delete_btn} aria-label="TODO 삭제">
+          <AiOutlineDelete size="16" />
+        </button>
       </div>
     </li>
   );
