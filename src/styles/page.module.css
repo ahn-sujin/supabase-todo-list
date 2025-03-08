@@ -23,6 +23,12 @@
   transform: translateY(-50%);
 }
 
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
 .add_btn {
   position: absolute;
   left: 50%;

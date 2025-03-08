@@ -4,20 +4,22 @@ import { useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
+import { createTodo, getTodos } from "@/actions/todo.action";
+
 import TodoItem from "@/components/todo-item";
+import Loader from "@/components/loader";
+
 import style from "@/styles/page.module.css";
-import { createTodo, getTodos } from "../actions/todo-action";
 
 export default function Home() {
   const [searchInput, setSearchInput] = useState("");
 
-  const getTodosResponse = useQuery({
+  const getTodosData = useQuery({
     queryKey: ["get", "todos", searchInput],
     queryFn: () => getTodos({ searchInput }),
   });
-  console.log("getTodosResponse", getTodosResponse.data);
 
-  const postTodosRequest = useMutation({
+  const createTodosData = useMutation({
     mutationFn: () =>
       createTodo({
         title: "새로운 할일",
@@ -25,8 +27,7 @@ export default function Home() {
       }),
 
     onSuccess: () => {
-      // getTodosResponse.refetch();
-      console.log("???");
+      getTodosData.refetch();
     },
   });
 
@@ -35,7 +36,7 @@ export default function Home() {
   };
 
   const onClickAddTodoBtn = () => {
-    postTodosRequest.mutate();
+    createTodosData.mutate();
   };
 
   return (
@@ -50,10 +51,18 @@ export default function Home() {
           <AiOutlineSearch />
         </div>
       </div>
-      <ul>
-        {getTodosResponse.isLoading && <div>Loading...</div>}
-        {getTodosResponse.isSuccess &&
-          getTodosResponse.data.map((todo) => <TodoItem key={todo.id} />)}
+      <ul className={style.list}>
+        {getTodosData.isLoading && <Loader />}
+        {getTodosData.isSuccess &&
+          getTodosData.data.map((todo) => (
+            <TodoItem
+              key={todo.id}
+              id={todo.id}
+              title={todo.title}
+              completed={todo.completed}
+              created_at={todo.created_at}
+            />
+          ))}
       </ul>
       <button onClick={onClickAddTodoBtn} className={style.add_btn}>
         ADD TODO
