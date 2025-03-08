@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import { queryClient } from "@/config/ReactQueryClientProvider";
 import { updateTodo, deleteTodo } from "@/actions/todo.action";
+import { formatDate } from "@/utils/date";
 import style from "@/styles/todo-item.module.css";
 
 interface TodoItemProps {
@@ -78,9 +79,13 @@ export default function TodoItem({
           onChange={onChnageInputChecked}
           checked={isDone}
         />
-
         {!isUpdated ? (
-          <span className={`${isDone ? style.checked : ""}`}>{title}</span>
+          <div className={style.title_wrapper}>
+            <span className={style.time}>작성일: {formatDate(created_at)}</span>
+            <span className={`${style.title} ${isDone ? style.checked : ""}`}>
+              {title}
+            </span>
+          </div>
         ) : (
           <input
             type="text"
@@ -90,6 +95,7 @@ export default function TodoItem({
           />
         )}
       </div>
+
       <div className={style.buttons}>
         {!isUpdated ? (
           <button onClick={onClickUpdatedBtn} aria-label="TODO 수정">
@@ -100,7 +106,6 @@ export default function TodoItem({
             <AiOutlineCheck size="16" />
           </button>
         )}
-
         <button
           className={style.delete_btn}
           onClick={onClickDeleteBtn}
