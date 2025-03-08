@@ -3,3 +3,42 @@
   flex-direction: column;
   gap: 20px;
 }
+
+.search_bar {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.search_bar > input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid rgb(220, 220, 220);
+}
+.search_bar > div {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.add_btn {
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  transform: translate(-50%, -10%);
+  width: 150px;
+  padding: 15px;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  font-weight: 500;
+  border: none;
+  border-radius: 30px;
+}
